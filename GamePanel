@@ -1,0 +1,51 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+
+import javax.swing.JPanel;
+import javax.swing.Timer;
+
+
+public class GamePanel extends JPanel {
+	private static final long serialVersionUID = 4798445055965105091L;
+	
+	private BufferedImage myImage;
+	private Graphics2D myBuffer;
+	private Timer t;
+	
+	private Polkadot pd;
+	
+	private static final int FRAME = 800;
+	private static final Color BACKGROUND = new Color(255, 255, 255);
+	
+	public GamePanel()
+	{
+		myImage = new BufferedImage(FRAME,FRAME, BufferedImage.TYPE_INT_RGB);
+		myBuffer = (Graphics2D) myImage.getGraphics();
+		myBuffer.setColor(BACKGROUND);
+		myBuffer.fillRect(0,0,FRAME,FRAME);
+		pd = new Polkadot();
+		t = new Timer(16, new Listener());
+		t.start();
+	}
+	
+	public void paintComponent(Graphics g)
+	{
+		
+		g.drawImage(myImage,0,0, getWidth(), getHeight(),null);
+	}
+	
+	private class Listener implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			pd.jump(FRAME, FRAME);
+			pd.draw(myBuffer);
+			
+			repaint();
+		}
+	}
+}
