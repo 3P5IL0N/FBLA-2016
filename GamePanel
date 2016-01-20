@@ -33,7 +33,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 		myBuffer.setColor(BACKGROUND);
 		myBuffer.fillRect(0,0,FRAME,FRAME);
 		this.addMouseListener(this);
-		this.addKeyListener(this);
+		Driver.frame.addKeyListener(this);
 		pd = new Polkadot();
 		mb = new movingBox();
 		mb.setMyDeltaX(3);
