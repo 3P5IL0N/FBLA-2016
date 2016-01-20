@@ -1,0 +1,93 @@
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.image.*;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+
+
+
+public class MinotaurPanel extends JPanel {
+
+   MinotaurModel m = new MinotaurModel(22,22);
+   Tile[][] board = m.board.board;
+   
+   static int height = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height;               
+    static int width = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().width;
+    
+   public MinotaurPanel() {
+   
+   }
+   
+   public void paintComponent(Graphics g)   {
+   
+      super.paintComponent(g); 
+      Graphics2D g2 = (Graphics2D)g;   
+      
+      int rows = board.length;
+      int cols = board[1].length;
+      
+      int boardWidth = width*4;
+      int boardHeight = height*4;
+      
+      Image img = null;
+     
+      for(int r = 0; r < rows; r++) {
+      
+         for(int c = 0; c < cols; c++) {
+         
+            if(board[r][c].isOpen()) {
+               img = new ImageIcon("Floor.png").getImage();
+            }
+            if(board[r][c].isExit()) {
+               img = new ImageIcon("Ladder.png").getImage();
+            }
+            if(board[r][c].hasItem()) {
+               img = new ImageIcon("Floor.png").getImage();
+            }
+            if(board[r][c].hasBeenVisited()) {
+               img = new ImageIcon("WalkedOn.png").getImage();
+            }
+            if(board[r][c].isPlayer()) {
+               img = new ImageIcon("Player.png").getImage();
+            }
+            if(board[r][c].isMinotaur()) {
+               img = new ImageIcon("Minotaur.png").getImage();
+            }
+            if(!board[r][c].isOpen()) {
+               if(r%2 == 0 && c%2 == 0 && r%3 == 0 && c%5 == 0)
+               img = new ImageIcon("Wall3.png").getImage();
+               else if(r%2 == 1)
+               img = new ImageIcon("Wall2.png").getImage();
+               else {
+               img = new ImageIcon("Wall1.png").getImage();
+               }
+            }
+            
+            g2.drawImage(img, (boardHeight/rows)*r, (boardHeight/cols)*c,(boardHeight/rows),(boardHeight/cols), null);
+            
+            if(!m.REVEAL)
+            if(Math.abs(r-m.pPoint.x)>1 || Math.abs(c-m.pPoint.y)>1) {
+              g2.setColor(Color.GRAY);
+              g2.fillRect((boardHeight/rows)*r, (boardHeight/cols)*c,(boardHeight/rows),(boardHeight/cols));
+            }
+ 
+            g2.setColor(Color.LIGHT_GRAY);
+            g2.drawRect((boardHeight/rows)*r, (boardHeight/cols)*c,(boardHeight/rows),(boardHeight/cols));
+            
+         }
+      }
+      
+   }
+   
+      
+   private class Listener implements ActionListener   
+   {         
+      public void actionPerformed(ActionEvent e)   
+      {         
+         repaint();     
+      }    
+   }
+
+}
