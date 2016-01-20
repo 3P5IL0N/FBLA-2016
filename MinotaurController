@@ -1,0 +1,254 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.applet.*;
+import acm.util.*;
+import acm.program.*;
+import acm.graphics.*;
+
+public class MinotaurController extends JPanel implements KeyListener {
+
+   static int height = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height;               
+   static int width = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().width;
+   
+   static int BOARD_HEIGHT = height*4;
+   static int BOARD_WIDTH = height*4; //change panels too
+   
+   static Timer timer;
+   
+   static MinotaurModel m = new MinotaurModel(22,22);
+   static MinotaurPanel p = new MinotaurPanel();
+   static MinotaurController controller;
+   static JFrame f;
+   static Insets insets;
+   
+
+   public MinotaurController(JFrame f) {
+      f.addKeyListener(this);     
+   }
+
+   public static void main(String[] args) {
+   
+      JFrame f = new JFrame("Minotaur");
+      f.setContentPane(p);
+      f.setSize(BOARD_WIDTH*3/m.board.cols, BOARD_WIDTH*3/m.board.rows);
+      f.setLocation(width/4,height/6);
+      f.setLayout(null);
+      f.setVisible(true);
+      f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      
+      MinotaurController controller = new MinotaurController(f);
+      
+      insets = f.getInsets();
+  
+      for(int i = 0; i < 2; i++) {
+      centerPlayer();
+      }
+      
+      
+      timer = new Timer(500, new TimerListener());
+      timer.setDelay(300); 
+      timer.start();
+      
+      AudioClip Sound1 = MediaTools.loadAudioClip("Fire Nation.wav");
+      Sound1.loop();
+     
+   }
+   
+   private static class TimerListener implements ActionListener {
+      
+      public void actionPerformed (ActionEvent e){
+         
+         centerPlayer();
+         moveMinotaur();
+         p.repaint();
+      }
+   
+   }
+
+   public void keyTyped(KeyEvent e) {         
+   }
+
+   public void keyPressed(KeyEvent e) {
+      
+      if(e.getKeyCode() == KeyEvent.VK_UP)
+      {
+         movePlayer(0);
+         //moveMinotaur();
+      }
+      else if(e.getKeyCode() == KeyEvent.VK_RIGHT)
+      {
+         movePlayer(1);
+         //moveMinotaur();
+      }
+      else if(e.getKeyCode() == KeyEvent.VK_DOWN)
+      {
+         movePlayer(2);
+         //moveMinotaur();
+      }
+      else if(e.getKeyCode() == KeyEvent.VK_LEFT)
+      {
+         movePlayer(3);
+         //moveMinotaur();
+      }
+      else if(e.getKeyCode() == KeyEvent.VK_SPACE)
+      {
+         m.REVEAL = true;
+      }
+   }
+   public void keyReleased(KeyEvent e) {
+         
+   }
+   
+   private void movePlayer(int direction) {
+      Tile[][] board = m.board.board;
+      
+   
+      if(direction == 0) { //up
+         if(board[m.pPoint.x][m.pPoint.y-1].isOpen()) {
+         
+            board[m.pPoint.x][m.pPoint.y].setVisited();
+            board[m.pPoint.x][m.pPoint.y].flipPlayer();
+            board[m.pPoint.x][m.pPoint.y-1].flipPlayer();
+            
+            m.pPoint.translate(0,-1);
+         }
+      }
+      else if(direction == 1) { //right
+         if(board[m.pPoint.x+1][m.pPoint.y].isOpen()) {
+         
+            board[m.pPoint.x][m.pPoint.y].setVisited();
+            board[m.pPoint.x][m.pPoint.y].flipPlayer();
+            board[m.pPoint.x+1][m.pPoint.y].flipPlayer();
+            
+            m.pPoint.translate(1,0);
+         }
+         
+      }
+      
+      else if(direction == 2) { //down
+         if(board[m.pPoint.x][m.pPoint.y+1].isOpen()) {
+         
+            board[m.pPoint.x][m.pPoint.y].setVisited();
+            board[m.pPoint.x][m.pPoint.y].flipPlayer();
+            board[m.pPoint.x][m.pPoint.y+1].flipPlayer();
+            
+            m.pPoint.translate(0,1);
+         }
+      }
+      
+      else if(direction == 3) { //left
+         if(board[m.pPoint.x-1][m.pPoint.y].isOpen()) {
+         
+            board[m.pPoint.x][m.pPoint.y].setVisited();
+            board[m.pPoint.x][m.pPoint.y].flipPlayer();
+            board[m.pPoint.x-1][m.pPoint.y].flipPlayer();
+            
+            m.pPoint.translate(-1,0);
+         }
+      }
+            
+      if(board[m.pPoint.x][m.pPoint.y].isExit())
+         win();
+         
+      if(board[m.pPoint.x][m.pPoint.y].isMinotaur())
+         lose();
+      
+        
+      centerPlayer();
+      
+   }
+   
+   private static void moveMinotaur() {
+   
+      Tile[][] board = m.board.board;
+   
+      
+   
+      boolean moved = false;
+      while (moved == false)
+      {
+         int direction = (int)(Math.random()*4);
+         
+         
+         if(direction == 0) { //up
+         
+            if(board[m.mPoint.x][m.mPoint.y+1].isOpen() && !board[m.mPoint.x][m.mPoint.y+1].isExit() ) {
+            
+               board[m.mPoint.x][m.mPoint.y].flipMinotaur();
+               board[m.mPoint.x][m.mPoint.y+1].flipMinotaur();
+            
+               m.mPoint.translate(0,1);
+               moved = true;
+            }
+         }
+         else if(direction == 1) { //right
+         
+            if(board[m.mPoint.x+1][m.mPoint.y].isOpen() && !board[m.mPoint.x+1][m.mPoint.y].isExit()) { //sometimes errors
+            
+               board[m.mPoint.x][m.mPoint.y].flipMinotaur();
+               board[m.mPoint.x+1][m.mPoint.y].flipMinotaur();
+            
+               m.mPoint.translate(1,0);
+               moved = true;
+            }
+         
+         }
+         
+         else if(direction == 2) { //down
+         
+            if(board[m.mPoint.x][m.mPoint.y-1].isOpen() && !board[m.mPoint.x][m.mPoint.y-1].isExit()) {
+            
+            
+               board[m.mPoint.x][m.mPoint.y].flipMinotaur();
+               board[m.mPoint.x][m.mPoint.y-1].flipMinotaur();
+            
+               m.mPoint.translate(0,-1);
+               moved = true;
+            
+            }
+         }
+         
+         else if(direction == 3) { //left
+            if(board[m.mPoint.x-1][m.mPoint.y].isOpen() && !board[m.mPoint.x-1][m.mPoint.y].isExit()){
+            
+            
+               board[m.mPoint.x][m.mPoint.y].flipMinotaur();
+               board[m.mPoint.x-1][m.mPoint.y].flipMinotaur();
+            
+               m.mPoint.translate(-1,0);
+               moved = true;
+            
+            }
+         }
+         
+      }
+         
+   if(board[m.mPoint.x][m.mPoint.y].isPlayer())
+         lose();
+         
+   }
+   
+   private static void centerPlayer() {
+      //p.setBounds(-(m.pPoint.x-1)*p.getWidth()/m.board.cols, -(m.pPoint.y-1)*p.getHeight()/m.board.rows, BOARD_WIDTH, BOARD_HEIGHT);
+      //p.repaint();
+      p.setBounds(-(m.pPoint.x-1)*(p.getWidth()/m.board.cols), -(m.pPoint.y-1)*(p.getHeight()/m.board.rows), BOARD_WIDTH, BOARD_HEIGHT);
+      p.repaint();
+   }
+   
+   private static void lose() {
+      timer.stop();
+      //f.removeKeyListener(controller);
+      JOptionPane.showMessageDialog(null, "Nom nom nom! Yummy! :)", "You lose.", JOptionPane.PLAIN_MESSAGE);
+      System.exit(0);
+   
+   }
+   
+   private void win() {
+      System.out.println("Hello, you win.");
+      JOptionPane.showMessageDialog(null, "You've escaped!!", "Freedom", JOptionPane.PLAIN_MESSAGE);
+      System.exit(0);
+   }
+}
+
+//Bryan's Copy
