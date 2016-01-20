@@ -1,0 +1,71 @@
+public class Tile {
+
+   boolean open;
+   boolean visited;
+   boolean isExit;
+   boolean isMinotaur;
+   boolean isPlayer;
+   String item;
+
+   public Tile() {
+   
+      open = true;
+      visited = false;
+      isExit = false;
+      isMinotaur = false;
+      isPlayer = false;
+      item = null;
+   }
+
+   public boolean isOpen() {
+      return open;
+   }
+   
+   public boolean isMinotaur() {
+     return isMinotaur;
+   }
+   
+   public boolean isSafeToMoveTo() {
+      return open && !isMinotaur;
+   }
+   
+   public boolean isPlayer() {
+      return isPlayer;
+   }
+   
+   public boolean hasItem() {
+      return item != null;
+   }
+   
+   public boolean hasBeenVisited() {
+      return visited;
+   }
+   
+   public boolean isExit() {
+      return isExit;
+   }
+   
+   public void close() {
+      open=false;
+   }
+   
+   public void open() {
+      open = true;
+   }
+   
+   public void flipMinotaur() {
+      isMinotaur = !isMinotaur;
+   }
+
+   public void flipPlayer(){
+      isPlayer = !isPlayer;
+   }
+   
+   public void setVisited(){
+      visited = true;
+   }
+
+   public void makeExit() {
+      isExit=true;
+   }
+}
