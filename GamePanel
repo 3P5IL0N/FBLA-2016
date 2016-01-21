@@ -3,13 +3,19 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+
+import java.util.Arrays;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel implements KeyListener, MouseListener {
 	private static final long serialVersionUID = 4798445055965105091L;
 	
 	private BufferedImage myImage;
@@ -17,9 +23,12 @@ public class GamePanel extends JPanel {
 	private Timer t;
 	
 	private Polkadot pd;
+	private Player p;
 	
 	private static final int FRAME = 800;
 	private static final Color BACKGROUND = new Color(255, 255, 255);
+	
+	private static boolean [] keysPressed = new boolean[525];
 	
 	public GamePanel()
 	{
@@ -27,7 +36,12 @@ public class GamePanel extends JPanel {
 		myBuffer = (Graphics2D) myImage.getGraphics();
 		myBuffer.setColor(BACKGROUND);
 		myBuffer.fillRect(0,0,FRAME,FRAME);
+		this.addMouseListener(this);
+		Driver.frame.addKeyListener(this);
+		Arrays.fill(keysPressed, false);
 		pd = new Polkadot();
+		p = new Player();
+		p.setMyDeltaX(0);
 		t = new Timer(16, new Listener());
 		t.start();
 	}
@@ -40,12 +54,67 @@ public class GamePanel extends JPanel {
 	
 	private class Listener implements ActionListener
 	{
-		public void actionPerformed(ActionEvent e)
-		{
-			pd.jump(FRAME, FRAME);
-			pd.draw(myBuffer);
+		public void actionPerformed(ActionEvent e){
+		
+			myBuffer.setBackground(BACKGROUND);
+			myBuffer.clearRect(0, 0, FRAME, FRAME);
+			//pd.jump(FRAME, FRAME);
+			//pd.draw(myBuffer);
+			p.move();
+			p.draw(myBuffer);
 			
 			repaint();
 		}
+	}
+	
+
+	public static boolean isPressed(int key) {
+		return keysPressed[key];
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		keysPressed[e.getKeyCode()] = true;		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		keysPressed[e.getKeyCode()] = false;		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
