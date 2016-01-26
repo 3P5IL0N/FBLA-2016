@@ -22,7 +22,6 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 	private Graphics2D myBuffer;
 	private Timer t;
 	
-	private Polkadot pd;
 	private Player p;
 	
 	private static final int FRAME = 800;
@@ -39,7 +38,6 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 		this.addMouseListener(this);
 		Driver.frame.addKeyListener(this);
 		Arrays.fill(keysPressed, false);
-		pd = new Polkadot();
 		p = new Player();
 		p.setMyDeltaX(0);
 		t = new Timer(16, new Listener());
