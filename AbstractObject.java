@@ -3,7 +3,7 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
 
-public abstract class abstractObject {
+public abstract class AbstractObject {
 	private double myX;   // x and y coordinates of center
     private double myY;
     private double myDeltaX;
@@ -11,7 +11,7 @@ public abstract class abstractObject {
     private double mySize;
     private Color myColor; 
     
-    public abstractObject()     //default constructor
+    public AbstractObject()     //default constructor
     {
        myX = 200;
        myY = 200;
@@ -21,7 +21,7 @@ public abstract class abstractObject {
        myColor = Color.RED;
     }
     
-    public abstractObject(double x, double y, double s, Color c)
+    public AbstractObject(double x, double y, double s, Color c)
     {
        myX = x;
        myY = y;
