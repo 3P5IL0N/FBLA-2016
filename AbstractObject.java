@@ -3,6 +3,7 @@ import java.awt.Graphics;
 
 public abstract class AbstractObject {
 	protected double myX;   // x and y coordinates of center
+    protected double myY;
     protected double myDeltaX;
     protected double myDeltaY;
     
