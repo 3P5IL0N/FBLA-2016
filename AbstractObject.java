@@ -1,14 +1,10 @@
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
 
 
 public abstract class AbstractObject {
-	private double myX;   // x and y coordinates of center
-    private double myY;
-    private double myDeltaX;
-    private double myDeltaY;
-    private double mySize;
+	protected double myX;   // x and y coordinates of center
+    protected double myDeltaX;
+    protected double myDeltaY;
     
     public AbstractObject()     //default constructor
     {
@@ -30,7 +26,6 @@ public abstract class AbstractObject {
     }
     public double getY()      
     { 
-       //_______________
   	  return myY;
     }
 
