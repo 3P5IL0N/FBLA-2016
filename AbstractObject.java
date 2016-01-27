@@ -1,15 +1,11 @@
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
 
 
 public abstract class AbstractObject {
-	private double myX;   // x and y coordinates of center
-    private double myY;
-    private double myDeltaX;
-    private double myDeltaY;
-    private double mySize;
-    private Color myColor; 
+	protected double myX;   // x and y coordinates of center
+    protected double myY;
+    protected double myDeltaX;
+    protected double myDeltaY;
     
     public AbstractObject()     //default constructor
     {
@@ -17,16 +13,12 @@ public abstract class AbstractObject {
        myY = 200;
        myDeltaX=0;
        myDeltaY=0;
-       mySize = 25;
-       myColor = Color.RED;
     }
     
-    public AbstractObject(double x, double y, double s, Color c)
+    public AbstractObject(double x, double y)
     {
        myX = x;
        myY = y;
-       mySize = s;
-       myColor = c;
     }
     
     public double getX() 
@@ -35,18 +27,9 @@ public abstract class AbstractObject {
     }
     public double getY()      
     { 
-       //_______________
   	  return myY;
     }
-    public Color getColor() 
-    { 
-       return myColor;
-    }
-    
-    public double getSize()
-    {
-    	return mySize;
-    }
+
     
     public void setX(double x)
     {
@@ -72,14 +55,6 @@ public abstract class AbstractObject {
 		this.myDeltaY = myDeltaY;
 	}
 
-	public void setColor(Color c)
-    {
-       myColor = c;
-    }
-    public void setSize(double s)
-    {
-    	mySize = s;
-    }
     public void move()
     {    	
     	myX+=myDeltaX;
