@@ -1,13 +1,14 @@
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
 public class Enemy extends AbstractObject {
-
-	public Enemy() {
-		 myX = 200;
-	     myY = 200;
-	     myDeltaX=0;
-	     myDeltaY=0;
-	}
+	
+	protected int myWidth;
+	protected int myHeight;
+	protected Color myColor;
+	protected int myHealth;
 	
 	public Enemy(int myX, int myY, int myDeltaX, int myDeltaY)
 	{
@@ -15,14 +16,30 @@ public class Enemy extends AbstractObject {
 		super.myY = myY;
 		super.myDeltaX = myDeltaX;
 		super.myDeltaY = myDeltaY;
+		myColor = Color.BLACK;
+		myHealth = 100;
 	}
 	
+	public int getHealth()
+	{
+		return myHealth;
+	}
 	
+	public void setHealth(int myHealth)
+	{
+		this.myHealth = myHealth;
+	}
 
 	@Override
 	public void draw(Graphics myBuffer) {
-		// TODO Auto-generated method stub
 		
+		Graphics2D g2d = (Graphics2D) myBuffer.create();
+		
+		Rectangle thisEnemy = new Rectangle((int)myX, (int)myY, myWidth, myHeight);
+		
+		g2d.draw(thisEnemy);
+		
+		g2d.dispose();
 	}
 
 }
