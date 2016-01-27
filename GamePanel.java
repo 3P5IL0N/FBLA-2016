@@ -23,6 +23,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 	private Timer t;
 	
 	private Player p;
+	private Wall w;
 	
 	private static final int FRAME = 800;
 	private static final Color BACKGROUND = new Color(255, 255, 255);
@@ -39,7 +40,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 		Driver.frame.addKeyListener(this);
 		Arrays.fill(keysPressed, false);
 		p = new Player();
-		p.setMyDeltaX(0);
+		w = new Wall(200,200,40,40,new Color(100,0,0));
 		t = new Timer(16, new Listener());
 		t.start();
 	}
@@ -60,7 +61,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 			//pd.draw(myBuffer);
 			p.move();
 			p.draw(myBuffer);
-			
+			w.draw(myBuffer);			
 			repaint();
 		}
 	}
