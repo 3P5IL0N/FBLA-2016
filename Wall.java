@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 
 public class Wall extends AbstractObject {
@@ -30,6 +31,12 @@ public class Wall extends AbstractObject {
 		// TODO Auto-generated method stub
 		myBuffer.setColor(myColor);
 		myBuffer.fillRect((int)myX,(int)myY,(int)myWidth,(int)myHeight);
+	}
+	
+	@Override
+	public Rectangle getBounds()
+	{
+		return new Rectangle((int)myX, (int)myY, (int)myWidth, (int)myHeight);
 	}
 
 }

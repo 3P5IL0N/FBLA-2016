@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 
 
@@ -107,9 +108,28 @@ public class Player {
     		myDeltaX = -3; 
     	
     	myX+=myDeltaX;
-    	myY+=myDeltaY;    		
+    	myY+=myDeltaY; 
+    	
+    	if(checkCollisions()){
+    		myX-=myDeltaX;
+    		myY-=myDeltaY;
+    	}
     }
-    public void draw(Graphics myBuffer) 
+    public boolean checkCollisions(){
+    	Rectangle playerBounds = GamePanel.p.getBounds();
+    	for(Wall wall: GamePanel.walls){
+    		Rectangle wallBounds = wall.getBounds();
+    		if(wallBounds.intersects(playerBounds)){
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+    private Rectangle getBounds() {
+    	return new Rectangle((int)myX, (int)myY, (int)mySize, (int)mySize);
+	}
+
+	public void draw(Graphics myBuffer) 
     {
        myBuffer.setColor(myColor);
        myBuffer.fillRect((int)myX,(int)myY,(int)mySize,(int)mySize);
