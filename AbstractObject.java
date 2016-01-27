@@ -1,5 +1,5 @@
 import java.awt.Graphics;
-import java.awt.Image;
+
 
 
 public abstract class AbstractObject {
@@ -7,14 +7,14 @@ public abstract class AbstractObject {
     protected double myY;
     protected double myDeltaX;
     protected double myDeltaY;
-    protected Image sprite;
+
     
     public AbstractObject()
     {
-    	this.myX = 0;
-    	this.myY = 0;
-    	this.myDeltaX = 0;
-    	this.myDeltaY = 0;
+       myX = 200;
+       myY = 200;
+       myDeltaX=0;
+       myDeltaY=0;
     }
     
     public AbstractObject(double x, double y)
