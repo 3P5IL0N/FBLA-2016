@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 
 public abstract class AbstractObject {
@@ -60,6 +61,8 @@ public abstract class AbstractObject {
     	myX+=myDeltaX;
     	myY+=myDeltaY;    		
     }
+    
+    public abstract Rectangle getBounds();
     
     public abstract void draw(Graphics myBuffer);
     
