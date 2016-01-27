@@ -7,15 +7,17 @@ public class Enemy extends AbstractObject {
 	
 	protected int myWidth;
 	protected int myHeight;
-	protected Color myColor;
+	private Color myColor;
 	protected int myHealth;
 	
-	public Enemy(int myX, int myY, int myDeltaX, int myDeltaY)
+	public Enemy(int myX, int myY, int myWidth, int myHeight)
 	{
 		super.myX = myX;
 		super.myY = myY;
 		super.myDeltaX = myDeltaX;
 		super.myDeltaY = myDeltaY;
+		this.myWidth = myWidth;
+		this.myHeight = myHeight;
 		myColor = Color.BLACK;
 		myHealth = 100;
 	}
@@ -33,13 +35,24 @@ public class Enemy extends AbstractObject {
 	@Override
 	public void draw(Graphics myBuffer) {
 		
-		Graphics2D g2d = (Graphics2D) myBuffer.create();
+		myBuffer.setColor(myColor);
+		
+		myBuffer.fillRect((int)myX, (int)myY, myWidth, myHeight);
+		
+		/*Graphics2D g2d = (Graphics2D) myBuffer.create();
 		
 		Rectangle thisEnemy = new Rectangle((int)myX, (int)myY, myWidth, myHeight);
 		
+		g2d.setColor(myColor);
+		
 		g2d.draw(thisEnemy);
 		
-		g2d.dispose();
+		g2d.dispose();*/
+	}
+	
+	public Rectangle getBounds()
+	{
+		return new Rectangle((int)myX, (int)myY, myWidth, myHeight);
 	}
 
 }

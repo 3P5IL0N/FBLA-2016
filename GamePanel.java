@@ -8,7 +8,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.JPanel;
@@ -29,6 +29,8 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 	
 	private static boolean [] keysPressed = new boolean[525];
 	
+	private ArrayList<Enemy> enemies;
+	
 	public GamePanel()
 	{
 		myImage = new BufferedImage(FRAME,FRAME, BufferedImage.TYPE_INT_RGB);
@@ -38,8 +40,13 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 		this.addMouseListener(this);
 		Driver.frame.addKeyListener(this);
 		Arrays.fill(keysPressed, false);
+		
+		enemies = new ArrayList<Enemy>();
+		enemies.add(new Enemy(50,50,100,100));
+		
 		p = new Player();
 		p.setMyDeltaX(0);
+		
 		t = new Timer(16, new Listener());
 		t.start();
 	}
@@ -60,6 +67,11 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 			//pd.draw(myBuffer);
 			p.move();
 			p.draw(myBuffer);
+			
+			for(Enemy enemy: enemies)
+			{
+				enemy.draw(myBuffer);
+			}
 			
 			repaint();
 		}
