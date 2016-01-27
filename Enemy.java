@@ -8,6 +8,16 @@ public class Enemy extends AbstractObject {
 	     myDeltaX=0;
 	     myDeltaY=0;
 	}
+	
+	public Enemy(int myX, int myY, int myDeltaX, int myDeltaY)
+	{
+		super.myX = myX;
+		super.myY = myY;
+		super.myDeltaX = myDeltaX;
+		super.myDeltaY = myDeltaY;
+	}
+	
+	
 
 	@Override
 	public void draw(Graphics myBuffer) {
