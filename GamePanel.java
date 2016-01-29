@@ -8,10 +8,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-<<<<<<< HEAD
 import java.util.ArrayList;
-=======
->>>>>>> Enemy-Class
 import java.util.Arrays;
 
 import javax.swing.JPanel;
