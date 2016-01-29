@@ -27,6 +27,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 	private Wall w;
 	 static ArrayList<Wall> walls = new ArrayList<Wall>(); 
 	private CollectableObject c;
+	private Enemy en;
 	
 	private static final int FRAME = 800;
 	private static final Color BACKGROUND = new Color(255, 255, 255);
@@ -43,7 +44,8 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 		Driver.frame.addKeyListener(this);
 		Arrays.fill(keysPressed, false);
 		p = new Player();
-		w = new Wall(400,400,40,40,new Color(100,0,0));
+		en = new Enemy(600,200,20,20);
+		w = new Wall(400,200,40,40,new Color(100,0,0));
 		walls.add(w);
 		c = new CollectableObject(300,300, new ImageIcon("Ladder.png").getImage());
 		p.setMyDeltaX(0);
@@ -68,7 +70,8 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 			p.move();
 			p.draw(myBuffer);
 			w.draw(myBuffer);	
-			c.draw(myBuffer);		
+			c.draw(myBuffer);	
+			en.draw(myBuffer);
 			repaint();
 		}
 	}

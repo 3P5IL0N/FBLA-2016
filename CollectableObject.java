@@ -26,6 +26,11 @@ public class CollectableObject extends AbstractObject
 
 		myBuffer.drawImage(img,(int)myX,(int)myY,null);
 	}
+
+	@Override
+	public Rectangle getBounds() {
+		return new Rectangle((int)myX,(int)myY,img.getWidth(null),img.getHeight(null));
+	}
 	
 
 }
