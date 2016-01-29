@@ -22,9 +22,9 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 	private Graphics2D myBuffer;
 	private Timer t;
 	
-	 static Player p;
+	static Player p;
 	private Wall w;
-	 static ArrayList<Wall> walls = new ArrayList<Wall>(); 
+	static ArrayList<Wall> walls = new ArrayList<Wall>(); 
 	
 	private static final int FRAME = 800;
 	private static final Color BACKGROUND = new Color(255, 255, 255);
