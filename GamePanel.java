@@ -26,6 +26,8 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 	 static Player p;
 	private Wall w;
 	 static ArrayList<Wall> walls = new ArrayList<Wall>(); 
+	 static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+	 static ArrayList<CollectableObject> objects = new ArrayList<CollectableObject>();
 	private CollectableObject c;
 	private Enemy en;
 	
@@ -46,8 +48,10 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 		p = new Player();
 		en = new Enemy(600,200,20,20);
 		w = new Wall(400,200,40,40,new Color(100,0,0));
-		walls.add(w);
 		c = new CollectableObject(300,300, new ImageIcon("Ladder.png").getImage());
+		walls.add(w);
+		enemies.add(en);
+		objects.add(c);
 		p.setMyDeltaX(0);
 		t = new Timer(16, new Listener());
 		t.start();

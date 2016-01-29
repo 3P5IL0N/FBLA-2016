@@ -126,6 +126,18 @@ public class Player {
     			return true;
     		}
     	}
+    	for(Enemy enemy: GamePanel.enemies){
+    		Rectangle wallBounds = enemy.getBounds();
+    		if(wallBounds.intersects(playerBounds)){
+    			return true;
+    		}
+    	}
+    	for(CollectableObject object: GamePanel.objects){
+    		Rectangle wallBounds = object.getBounds();
+    		if(wallBounds.intersects(playerBounds)){
+    			return true;
+    		}
+    	}
     	return false;
     }
     private Rectangle getBounds() {
