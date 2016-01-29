@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -23,13 +24,14 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 	private Graphics2D myBuffer;
 	private Timer t;
 	
-	 static Player p;
-	private Wall w;
 	 static ArrayList<Wall> walls = new ArrayList<Wall>(); 
 	 static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	 static ArrayList<CollectableObject> objects = new ArrayList<CollectableObject>();
+	 
+	 static Player p; 
 	private CollectableObject c;
 	private Enemy en;
+	private Wall w;
 	
 	private static final int FRAME = 800;
 	private static final Color BACKGROUND = new Color(255, 255, 255);
@@ -42,17 +44,20 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 		myBuffer = (Graphics2D) myImage.getGraphics();
 		myBuffer.setColor(BACKGROUND);
 		myBuffer.fillRect(0,0,FRAME,FRAME);
+		
 		this.addMouseListener(this);
 		Driver.frame.addKeyListener(this);
 		Arrays.fill(keysPressed, false);
+		
 		p = new Player();
 		en = new Enemy(600,200,20,20);
-		w = new Wall(400,200,40,40,new Color(100,0,0));
+		w = new Wall(400,200,50,50,new Color(100,0,0));
 		c = new CollectableObject(300,300, new ImageIcon("Ladder.png").getImage());
+		
 		walls.add(w);
 		enemies.add(en);
 		objects.add(c);
-		p.setMyDeltaX(0);
+		
 		t = new Timer(16, new Listener());
 		t.start();
 	}
@@ -69,13 +74,13 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 		
 			myBuffer.setBackground(BACKGROUND);
 			myBuffer.clearRect(0, 0, FRAME, FRAME);
-			//pd.jump(FRAME, FRAME);
-			//pd.draw(myBuffer);
+			
 			p.move();
 			p.draw(myBuffer);
 			w.draw(myBuffer);	
 			c.draw(myBuffer);	
 			en.draw(myBuffer);
+			
 			repaint();
 		}
 	}

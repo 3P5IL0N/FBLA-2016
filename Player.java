@@ -12,6 +12,7 @@ public class Player {
     private double mySize;
     private Color myColor;
     private int lives;
+    private int SPEED = 3;
     
     public Player()     //default constructor
     {
@@ -97,18 +98,18 @@ public class Player {
     	else if(!GamePanel.isPressed(KeyEvent.VK_UP) && !GamePanel.isPressed(KeyEvent.VK_DOWN))
     		myDeltaY = 0;
     	else if(GamePanel.isPressed(KeyEvent.VK_UP) && !GamePanel.isPressed(KeyEvent.VK_DOWN))
-    		myDeltaY = -3;
+    		myDeltaY = -SPEED;
     	else if(!GamePanel.isPressed(KeyEvent.VK_UP) && GamePanel.isPressed(KeyEvent.VK_DOWN))
-    		myDeltaY = 3;  
+    		myDeltaY = SPEED;  
     	
     	if(GamePanel.isPressed(KeyEvent.VK_RIGHT) && GamePanel.isPressed(KeyEvent.VK_LEFT))
     		myDeltaX = 0;
     	else if(!GamePanel.isPressed(KeyEvent.VK_RIGHT) && !GamePanel.isPressed(KeyEvent.VK_LEFT))
     		myDeltaX = 0;
     	else if(GamePanel.isPressed(KeyEvent.VK_RIGHT) && !GamePanel.isPressed(KeyEvent.VK_LEFT))
-    		myDeltaX = 3;
+    		myDeltaX = SPEED;
     	else if(!GamePanel.isPressed(KeyEvent.VK_RIGHT) && GamePanel.isPressed(KeyEvent.VK_LEFT))
-    		myDeltaX = -3; 
+    		myDeltaX = -SPEED; 
     	
     	myX+=myDeltaX;
     	myY+=myDeltaY; 
@@ -116,6 +117,13 @@ public class Player {
     	if(checkCollisions()){
     		myX-=myDeltaX;
     		myY-=myDeltaY;
+    		
+    		myX+=myDeltaX/SPEED;
+    		myY+=myDeltaY/SPEED;
+    		if(checkCollisions()){
+    			myX-=myDeltaX/SPEED;
+    			myY-=myDeltaY/SPEED;
+    		}
     	}
     }
     public boolean checkCollisions(){
