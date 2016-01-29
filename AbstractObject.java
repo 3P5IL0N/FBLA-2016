@@ -2,13 +2,15 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 
+
 public abstract class AbstractObject {
 	protected double myX;   // x and y coordinates of center
     protected double myY;
     protected double myDeltaX;
     protected double myDeltaY;
+
     
-    public AbstractObject()     //default constructor
+    public AbstractObject()
     {
        myX = 200;
        myY = 200;

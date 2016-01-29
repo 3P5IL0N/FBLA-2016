@@ -10,7 +10,8 @@ public class Player {
     private double myDeltaX;
     private double myDeltaY;
     private double mySize;
-    private Color myColor; 
+    private Color myColor;
+    private int lives;
     
     public Player()     //default constructor
     {
@@ -20,6 +21,7 @@ public class Player {
        myDeltaY=0;
        mySize = 25;
        myColor = Color.RED;
+       lives = 3;
     }
     
     public Player(double x, double y, double s, Color c)
@@ -28,6 +30,7 @@ public class Player {
        myY = y;
        mySize = s;
        myColor = c;
+       lives = 3;
     }
     
     public double getX() 

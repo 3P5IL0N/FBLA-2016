@@ -8,7 +8,10 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+>>>>>>> Enemy-Class
 import java.util.Arrays;
 
 import javax.swing.JPanel;
@@ -43,6 +46,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 		p = new Player();
 		w = new Wall(400,400,40,40,new Color(100,0,0));
 		walls.add(w);
+		p.setMyDeltaX(0);
 		t = new Timer(16, new Listener());
 		t.start();
 	}
